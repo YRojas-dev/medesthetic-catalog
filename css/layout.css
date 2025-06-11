@@ -1,6 +1,15 @@
 /* =========================================================================================================================== */
 /* =============================================== CONFIGURACION GENERAL ===================================================== */
 /* =========================================================================================================================== */
+:root {
+  --color-dark: #000000;
+  --color-light: #ffffff;
+  --color-accent: #d4af37; 
+  --color-accent-dark: #b8860b;
+  --color-border: #d4af37c3; 
+  --color-muted: #8c6a0ab0;
+}
+
 .cover-section > * {
   position: relative;
   z-index: 1;
@@ -13,24 +22,25 @@
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px // Mejor adaptabilidad para cualquier tipo de navegador */
+  font-size: 62.5%;
   scroll-behavior: smooth;
 }
 
 body {
-  font-size: 1.6rem; /* 1rem = 10px // Mejor adaptabilidad para cualquier tipo de navegador */
+  font-size: 1.6rem;
   min-height: 100vh;
   margin: 0;
   padding-top: 6rem;
   font-family: sans-serif;
-  background-color: #116767b0;
+  background-color: var(--color-light);
+  overflow-x: hidden;
 }
 
 /* =========================================================================================================================== */
 /* =================================================== NAVBAR BASE =========================================================== */
 /* =========================================================================================================================== */
 nav {
-  background-color: #132929;
+  background-color: var(--color-dark);
   width: 100%;
   height: 5rem;
   top: 0;
@@ -41,7 +51,7 @@ nav {
   align-items: center;
   padding: 0 3rem;
   box-sizing: border-box;
-  border-bottom: 2px solid #307d7a;
+  border-bottom: 2px solid var(--color-border);
   justify-content: center;
   position: fixed;
   overflow: visible;
@@ -54,7 +64,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #57ccc7;
+  color: var(--color-accent);
   border-radius: 0.5rem;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-weight: bold;
@@ -63,8 +73,8 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #57ccc7;
-  color: #000;
+  background-color: var(--color-accent-dark);
+  color: var(--color-dark);
 }
 
 /* =========================================================================================================================== */
@@ -95,7 +105,7 @@ nav a:hover {
   align-items: center;
   justify-content: flex-start;
   background-color: transparent;
-  border: 2px solid #307d7a;
+  border: 2px solid var(--color-border);
   border-radius: 999px;
   height: 100%;
   padding: 0 0.5rem;
@@ -111,8 +121,8 @@ nav a:hover {
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
-  border: 2px solid #57ccc7;
-  background-color: #116767b0;
+  border: 2px solid var(--color-accent);
+  background-color: var(--color-muted);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -133,7 +143,7 @@ nav a:hover {
   display: flex;
   align-items: center;
   font-size: 1.3rem;
-  color: #57ccc7;
+  color: var(--color-accent);
   font-weight: bold;
   transition: transform 0.4s ease;
   justify-content: center;
@@ -187,47 +197,29 @@ html[data-lang="en"]
 }
 
 /* =========================================================================================================================== */
-/* ================================================ CONTENEDOR GENERAL ======================================================= */
+/* ===================================================== GENERAL ============================================================= */
 /* =========================================================================================================================== */
 .section-container {
-  background-color: #116767b0;
-  max-width: 600px;
+  background-color: var(--color-dark);
+  max-width: 800px;
   margin: 40px auto;
   padding: 20px;
-  border: 1px solid #307d7a;
+  border: 1px solid var(--color-dark);
   border-radius: 12px;
   font-family: Arial, sans-serif;
-}
-
-.section-title {
-  color: #57ccc7;
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.section-divider {
-  border: none;
-  height: 2px;
-  background-color: #57ccc7;
-  margin-bottom: 20px;
 }
 
 /* =========================================================================================================================== */
 /* ========================================================= FOOTER ========================================================== */
 /* =========================================================================================================================== */
 .main-footer {
-  background-color: #132929;
-  border-top: 2px solid #307d7a;
+  background-color: var(--color-dark);
+  border-top: 2px solid var(--color-accent-dark);
   padding: 1rem 3rem 1rem;
-  color: #57ccc7;
+  color: var(--gold);
   font-family: "Calibri", sans-serif;
   text-align: center;
   width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -259,7 +251,7 @@ html[data-lang="en"]
   margin: 0;
   font-size: 1.5rem;
   font-weight: normal;
-  color: #57ccc7;
+  color: var(--color-accent);
 }
 
 .footer-icon {

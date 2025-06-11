@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ======================================= Tratamientos ======================================= */
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-          buttons.forEach(btn => btn.classList.remove('active'));
-          contents.forEach(content => content.style.display = 'none');
-          const tabId = button.getAttribute('data-tab');
-          document.getElementById(tabId).style.display = 'block';
-          button.classList.add('active');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.style.display = 'none');
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(tabId).style.display = 'block';
+            button.classList.add('active');
         });
-      });
+    });
 });
