@@ -77,123 +77,37 @@ nav a:hover {
   color: var(--color-dark);
 }
 
-/* =========================================================================================================================== */
-/* ====================================================== LENGUAJE =========================================================== */
-/* =========================================================================================================================== */
-.lang-container {
+.whatsapp-button {
   position: absolute;
-  right: 2rem !important;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2000;
-}
-
-.lang-switch {
-  position: relative;
-  width: 110px;
-  height: 30px;
-  font-family: sans-serif;
-  overflow: visible;
-}
-
-.lang-switch input[type="checkbox"] {
-  display: none;
-}
-
-.lang-label {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  background-color: transparent;
-  border: 2px solid var(--color-border);
-  border-radius: 999px;
-  height: 100%;
-  padding: 0 0.5rem;
-  cursor: pointer;
-  position: relative;
-  overflow: visible;
-}
-
-.lang-icon {
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border: 2px solid var(--color-accent);
-  background-color: var(--color-muted);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s ease;
-  z-index: 2;
-}
-
-.lang-icon-svg {
-  width: 18px;
-  height: 18px;
-}
-
-.text-wrapper {
-  left: 42px;
-  width: 90px;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  text-decoration: none;
+  color: #d4af37;
+  font-weight: 600;
   font-size: 1.3rem;
-  color: var(--color-accent);
-  font-weight: bold;
-  transition: transform 0.4s ease;
-  justify-content: center;
-  position: absolute;
-  left: 0;
+  transition: color 0.3s ease;
 }
 
-.lang-text {
-  min-width: 90px;
-  text-align: left;
-  transition: opacity 0.3s ease;
+.whatsapp-button svg {
+  width: 24px;
+  height: 24px;
+  stroke: #d4af37;
+  transition: stroke 0.3s ease;
 }
 
-.lang-es {
-  display: none;
+.whatsapp-button:hover,
+.whatsapp-button:focus {
+  color: #000000;
 }
 
-.lang-switch input[type="checkbox"]:checked + .lang-label .lang-icon {
-  transform: translate(69px, -50%);
-}
-
-.lang-switch input[type="checkbox"]:checked + .lang-label .lang-en {
-  display: none;
-}
-
-.lang-switch input[type="checkbox"]:checked + .lang-label .lang-es {
-  display: inline;
-}
-
-html[data-lang="es"]
-  .lang-switch
-  input[type="checkbox"]:checked
-  + .lang-label
-  .text-wrapper {
-  transform: translateX(-28px) !important;
-}
-
-html[data-lang="en"]
-  .lang-switch
-  input[type="checkbox"]:checked
-  + .lang-label
-  .text-wrapper {
-  transform: translateX(-24rem) !important;
-}
-
-.lang-text .short {
-  display: none;
-}
-.lang-text .full {
-  display: inline;
+.whatsapp-button:hover svg,
+.whatsapp-button:focus svg {
+  stroke: #000000;
 }
 
 /* =========================================================================================================================== */
