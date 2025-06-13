@@ -3,11 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyEmail = document.getElementById('copy-btn-email');
     const copyPhone = document.getElementById('copy-btn-phone');
     const toast = document.getElementById('toast');
-    const langToggle = document.getElementById('lang-toggle');
-    const textWrapper = document.querySelector('.text-wrapper');
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
-    const gridLast = document.querySelector('.treatment-grid-last');
+    const renderCache = {};
 
     // ======================================= Toast ======================================= 
     function showToast() {
@@ -81,29 +79,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Orden de Tarjetas
     const treatmentsAntiAging = [
-        { title: "Hollywood Peeling", image: "img/treatments/anti-aging/aux.jpg", desc: "Lorem ipsum dolor sit amet." },
-        { title: "Rejuvenecimiento Láser", image: "img/treatments/anti-aging/aux.jpg", desc: "Tratamiento avanzado para líneas de expresión." },
-        { title: "Mesoterapia Facial", image: "img/treatments/anti-aging/aux.jpg", desc: "Hidratación profunda y nutrición celular." },
-        { title: "Lifting sin cirugía", image: "img/treatments/anti-aging/aux.jpg", desc: "Efecto tensor inmediato y duradero." },
-        { title: "Plasma Rico en Plaquetas", image: "img/treatments/anti-aging/aux.jpg", desc: "Regeneración natural con tus propias células." },
-        { title: "Peeling Químico", image: "img/treatments/anti-aging/aux.jpg", desc: "Renovación de la piel controlada." },
-        { title: "Dermapen", image: "img/treatments/anti-aging/aux.jpg", desc: "Microagujas para estimular colágeno." },
-        { title: "Dermapen", image: "img/treatments/anti-aging/aux.jpg", desc: "Microagujas para estimular colágeno." },
+        { title: "Bioestimulación con Ácido Hialurónico", image: "img/treatments/anti-aging/hyaluronic-acid-biostimulation.jpg", desc: "Hidrata profundamente y estimula la producción natural de colágeno para una piel tersa, firme y revitalizada." },
+        { title: "Bioestimulación con Colágeno", image: "img/treatments/anti-aging/collagen-biostimulation.jpg", desc: "Estimula la producción de colágeno desde el interior, restaurando la elasticidad y firmeza natural de tu piel." },
+        { title: "Bioestimulación PRP", image: "img/treatments/anti-aging/prp-biostimulation.jpg", desc: "Activa la regeneración celular con tu propio plasma, mejorando textura, firmeza y luminosidad en rostro y cuello." },
+        { title: "Botox Full-Face", image: "img/treatments/anti-aging/botox-fullface.jpg", desc: "Rejuvenece tu rostro al relajar arrugas y líneas de expresión con una aplicación integral y de efecto natural." },
+        { title: "Peeling Químico", image: "img/treatments/anti-aging/chemical-peel.jpg", desc: "Renueva tu piel eliminando imperfecciones, manchas y células muertas para lograr un rostro más uniforme y luminoso." },
+        { title: "Plasmapen", image: "img/treatments/anti-aging/plasmapen.jpg", desc: "Tensa la piel, reduce arrugas finas y mejora la firmeza facial con esta técnica de plasma no invasiva y precisa." },
     ];
 
     const treatmentsFacialHarmony = [
-        { title: "Rinomodelación", image: "img/treatments/anti-aging/aux.jpg", desc: "Moldea la nariz sin cirugía." },
-        { title: "Toxina Botulínica", image: "img/treatments/anti-aging/aux.jpg", desc: "Relaja músculos para armonizar el rostro." },
+        { title: "Bichectomía Enzimática", image: "img/treatments/facial-harmony/bichectomy.jpg", desc: "Reduce el volumen de las mejillas para un rostro más definido y estilizado con un procedimiento no quirúrgico." },
+        { title: "Plasma Rico en Plaquetas", image: "img/treatments/facial-harmony/platelet-rich-plasma.jpg", desc: "Estimula la regeneración y mejora la textura de la piel usando tus propias plaquetas para un rostro rejuvenecido." },
+        { title: "Reducción de Papada", image: "img/treatments/facial-harmony/double-chin-reduction.jpg", desc: "Moldea el contorno facial eliminando grasa localizada en la zona del cuello para un perfil más definido." },
+        { title: "Relleno de Labios", image: "img/treatments/facial-harmony/lip-filler.jpg", desc: "Aumenta el volumen y define la forma de tus labios con rellenos naturales para un aspecto más atractivo y juvenil." },
+        { title: "Relleno de Ojeras", image: "img/treatments/facial-harmony/tear-trough-filler.jpg", desc: "Corrige hundimientos y ojeras con ácido hialurónico para un contorno de ojos más fresco y descansado." },
+        { title: "Rinomodelación con Ácido Hialurónico", image: "img/treatments/facial-harmony/non-surgical-rhinoplasty.jpg", desc: "Moldea la nariz sin cirugía, corrigiendo irregularidades y perfilando su forma con ácido hialurónico." },
+        { title: "Toxina Botulínica", image: "img/treatments/facial-harmony/botulinum-toxin.jpg", desc: "Relaja arrugas y líneas de expresión para un rostro más liso y rejuvenecido con un tratamiento rápido y efectivo." },
     ];
 
     const treatmentsPersonalizedAesthetics = [
-        { title: "Diseño Facial Personalizado", image: "img/treatments/anti-aging/aux.jpg", desc: "Tratamiento a medida según tus rasgos." },
+        { title: "Alopecia", image: "img/treatments/personalized-aesthetics/alopecia.jpg", desc: "Tratamiento especializado para la caída del cabello, fortaleciendo los folículos y estimulando el crecimiento natural." },
+        { title: "Anti Ácne", image: "img/treatments/personalized-aesthetics/anti-acne.jpg", desc: "Controla y reduce brotes de acné con tratamientos personalizados para mejorar la salud y apariencia de la piel." },
+        { title: "Hollywood Peel", image: "img/treatments/personalized-aesthetics/hollywood-peel.jpg", desc: "Renueva la piel con un peeling láser que elimina impurezas y da luminosidad para un rostro radiante y uniforme." },
+        { title: "Peeling Químico", image: "img/treatments/personalized-aesthetics/chemical-peel.jpg", desc: "Elimina células muertas y manchas para revelar una piel más suave, uniforme y rejuvenecida." },
+        { title: "Plasma Rico en Plaquetas", image: "img/treatments/personalized-aesthetics/platelet-rich-plasma.jpg", desc: "Regenera la piel y mejora su textura usando factores de crecimiento presentes en tu propio plasma." },
+        { title: "Plasmapen", image: "img/treatments/personalized-aesthetics/plasmapen.jpg", desc: "Técnica precisa que tensa la piel y reduce arrugas mediante energía de plasma no invasiva." },
+        { title: "Sonrisa Gingival", image: "img/treatments/personalized-aesthetics/gummy-smile.jpg", desc: "Corrige la exposición excesiva de encías al sonreír para una sonrisa más armónica y estética." },
+        { title: "Sueroterapia", image: "img/treatments/personalized-aesthetics/IV-therapy.jpg", desc: "Tratamiento revitalizante que hidrata y nutre la piel con sueros especializados para un brillo saludable." },
+        { title: "Toxina Botulínica", image: "img/treatments/personalized-aesthetics/botulinum-toxin.jpg", desc: "Reduce arrugas y líneas de expresión para un rostro más liso y rejuvenecido con un método seguro y rápido." },
+        { title: "Vampiro Facial", image: "img/treatments/personalized-aesthetics/vampire-facial.jpeg", desc: "Estimula colágeno y rejuvenece la piel mediante microperforaciones y plasma rico en plaquetas." },
     ];
 
     const treatmentsBodyTreatment = [
-        { title: "Láser Lipolítico", image: "img/treatments/anti-aging/aux.jpg", desc: "Reducción de grasa localizada." },
-        { title: "Cavitación", image: "img/treatments/anti-aging/aux.jpg", desc: "Tratamiento no invasivo para celulitis." },
-        { title: "Radiofrecuencia Corporal", image: "img/treatments/anti-aging/aux.jpg", desc: "Tensa y reafirma la piel." },
+        { title: "Disminución de Grasa", image: "img/treatments/body-treatment/fat-reduction.jpg", desc: "Tratamiento localizado para reducir cúmulos de grasa resistente, mejorando la silueta sin necesidad de cirugía." },
+        { title: "Encimas Lipolíticas", image: "img/treatments/body-treatment/lipolytic-enzymes.jpg", desc: "Tratamiento que disuelve grasa localizada mediante enzimas naturales. Ideal para moldear zonas específicas del cuerpo." },
+        { title: "Mesoterapia", image: "img/treatments/body-treatment/mesotherapy.jpg", desc: "Microinyecciones de activos en la piel para mejorar firmeza, hidratación y reducir grasa o celulitis según el objetivo." },
+        { title: "Reducción de Cicatrices", image: "img/treatments/body-treatment/scar-reduction.png", desc: "Técnica estética que suaviza cicatrices visibles, devolviendo uniformidad y textura natural a la piel tratada." },
+        { title: "Retiro de verrugas", image: "img/treatments/body-treatment/wart-removal.jpg", desc: "Eliminación segura y estética de verrugas en distintas zonas, sin dejar marcas visibles y con mínima molestia." },
     ];
 
     const tabData = {
@@ -147,7 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función Render
     function renderTreatmentGrid(containerId, treatmentList) {
         const tab = document.getElementById(containerId);
-        tab.innerHTML = '';
+
+        if (renderCache[containerId]) {
+            tab.innerHTML = '';
+            tab.appendChild(renderCache[containerId]);
+            return;
+        }
+
+        const gridWrapper = document.createElement("div");
 
         const gridMain = document.createElement("div");
         const gridLast = document.createElement("div");
@@ -161,11 +180,16 @@ document.addEventListener('DOMContentLoaded', () => {
         mainCards.forEach(data => gridMain.appendChild(createTreatmentCard(data)));
         lastCards.forEach(data => gridLast.appendChild(createTreatmentCard(data)));
 
-        tab.appendChild(gridMain);
+        gridWrapper.appendChild(gridMain);
         if (lastCards.length > 0) {
-            tab.appendChild(gridLast);
+            gridWrapper.appendChild(gridLast);
             adjustLastRow(gridLast);
         }
+
+        tab.innerHTML = '';
+        tab.appendChild(gridWrapper);
+
+        renderCache[containerId] = gridWrapper.cloneNode(true);
     }
 
     // Ajuste de Fila
