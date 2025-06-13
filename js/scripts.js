@@ -5,7 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
+    const nav = document.getElementById("main-nav");
+    const topBar = document.querySelector(".top-bar");
     const renderCache = {};
+
+    // ======================================= NavBar ======================================= 
+    window.addEventListener("scroll", () => {
+        const topBarBottom = topBar.getBoundingClientRect().bottom;
+
+        if (topBarBottom <= 0) {
+            nav.classList.add("sticky");
+        } else {
+            nav.classList.remove("sticky");
+        }
+    });
 
     // ======================================= Toast ======================================= 
     function showToast() {
