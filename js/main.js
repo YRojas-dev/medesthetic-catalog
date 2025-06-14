@@ -5,20 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
-    const nav = document.getElementById("main-nav");
-    const topBar = document.querySelector(".top-bar");
+    const dataBox = document.querySelector('.data-box');
+    const animatedElements = document.querySelectorAll(".animate-fade-up");
     const renderCache = {};
-
-    // ======================================= NavBar ======================================= 
-    window.addEventListener("scroll", () => {
-        const topBarBottom = topBar.getBoundingClientRect().bottom;
-
-        if (topBarBottom <= 0) {
-            nav.classList.add("sticky");
-        } else {
-            nav.classList.remove("sticky");
-        }
-    });
 
     // ======================================= Toast ======================================= 
     function showToast() {
@@ -302,5 +291,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ======================================= Animacion fadeUp =======================================
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+
+                if (el === dataBox) {
+                    el.classList.add("animate-border", "animate-content");
+                }
+
+                if (el.classList.contains("animate-fade-up")) {
+                    el.classList.add("in-view");
+                }
+
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.8});
+
+    if (dataBox) {
+        observer.observe(dataBox);
+    }
+
+    animatedElements.forEach(el => observer.observe(el));
     renderTreatmentGrid("anti-aging", treatmentsAntiAging);
 });
