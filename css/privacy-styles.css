@@ -1,0 +1,173 @@
+.cover h1 {
+  margin: 0;
+  position: relative;
+  top: -25rem;
+  animation-delay: 0.3s;
+}
+
+.cover::before {
+  content: "";
+  animation-delay: 0s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/privacy/privacy-cover.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: -1;
+}
+
+.cover::before,
+.cover h1 {
+  opacity: 0;
+  transform: translateY(100%);
+  animation-name: slideUpFadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.data-box {
+  opacity: 0;
+  visibility: hidden;
+  border: 4px solid transparent; 
+  padding: 20px;
+  margin: auto;
+  width: fit-content;
+  max-width: 90%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border 0.5s ease;
+}
+
+.data-box.animate-border {
+  border-color: black;
+  opacity: 1;
+  visibility: visible;
+  animation: borderSlideUp 0.5s ease forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform-origin: top;
+}
+
+.data-box > div {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.data-box.animate-content > div {
+  animation: contentSlideUp 0.6s ease forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes borderSlideUp {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes contentSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title-header {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.specialty {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.license {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.location {
+  text-align: center;
+}
+
+.location-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.contact {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.last-title {
+  margin-top: 35rem;
+  margin-bottom: 10rem;
+  font-size: 3.1rem;
+  text-align: center;
+}
+
+.privacy-notice {
+  margin-bottom: 10rem;
+}
+
+#privacy-p1,
+#privacy-p2,
+#privacy-p3,
+#privacy-p4,
+#privacy-p5,
+#privacy-p6 {
+  margin-bottom: 1.8rem;
+}
+
+.privacy-notice p {
+  font-size: 2rem;
+  text-align: justify;
+  padding: 0 35rem;
+  line-height: 1.8;
+}
+
+.date {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 15rem;
+}

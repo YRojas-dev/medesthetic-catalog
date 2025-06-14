@@ -57,6 +57,7 @@
 
 /* ================================== Titulo */
 .title-cover {
+  margin-top: -50rem;
   margin-left: 50rem;
   font-size: 3rem;
   transform: scaleY(1.2);
@@ -69,7 +70,7 @@
   font-size: 3.2rem;
   font-weight: bold;
   margin: 0;
-  margin-top: 1rem;
+  margin-top: 26rem;
   margin-left: 50rem;
   color: var(--color-dark);
   font-family: "Dancing Script", cursive;
@@ -79,17 +80,13 @@
 .animated-subtitle {
   font-size: 2.3rem;
   color: var(--color-dark);
-  margin-top: 1rem;
+  margin-top: -23rem;
   margin-left: 50rem;
   font-family: monospace;
   white-space: nowrap;
   overflow: hidden;
   width: 49ch;
-  animation: typingLoop 19s steps(49, end) infinite,
-    blink 0.7s step-end infinite;
-  /* Borde en las letras */
-  -webkit-text-stroke: 0.4px var(--color-dark);
-  stroke: 0.3px var(--color-dark);
+  animation: typingLoop 19s steps(49, end) infinite;
 }
 
 /* Animación combinada: escribir, esperar, borrar */
@@ -105,12 +102,6 @@
   }
   100% {
     width: 0ch;
-  }
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
   }
 }
 
@@ -143,8 +134,8 @@
   height: 4.5rem;
   display: flex;
   align-items: center;
-  background-color: var(--color-dark); 
-  color: var(--color-accent);        
+  background-color: var(--color-dark);
+  color: var(--color-accent);
   margin-left: 2rem;
   border-radius: 20px;
   width: 18rem;
@@ -180,7 +171,7 @@
 /* ================================== Ubicación Botón */
 .location-button {
   display: inline-flex;
-  background-color: var(--color-dark); 
+  background-color: var(--color-dark);
   height: 4.5rem;
   width: 150px;
   border-radius: 20px;
@@ -321,7 +312,7 @@
 /* ======================================================= TRATAMIENTOS ====================================================== */
 /* =========================================================================================================================== */
 .treatments-title {
-  margin-top: 13rem;
+  margin-top: -15rem;
   margin-bottom: 3rem;
   text-align: center;
   font-size: 5rem;
@@ -330,7 +321,7 @@
 
 .treatments-subtitle {
   text-transform: uppercase;
-  margin-bottom: 10rem;
+  margin-bottom: 15rem;
   text-align: center;
   font-size: 3.5rem;
   font-weight: 400;
@@ -406,7 +397,7 @@
   padding: 0;
   box-sizing: border-box;
   background-color: #000 !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
   pointer-events: none;
   opacity: 1 !important;
 }
@@ -421,7 +412,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border-radius: 0;
   box-sizing: border-box;
   perspective: 1000px;
@@ -483,7 +474,7 @@
   transform: rotateY(-180deg);
   background-color: #ffffffcc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 3; 
+  z-index: 3;
   pointer-events: auto;
 }
 
@@ -523,9 +514,9 @@
   font-size: 1.7rem;
   z-index: 2;
   margin: 0.5rem 0;
-  color: var(--color-dark);;
+  color: var(--color-dark);
   text-align: center;
-  width: 90%; 
+  width: 90%;
 }
 
 .treatment-btn {
@@ -535,9 +526,9 @@
   padding: 0.6rem 1.2rem;
   border: none;
   background-color: var(--color-accent);
-  color: var(--color-dark);;
+  color: var(--color-dark);
   font-weight: bold;
-  font-size: 1.7rem; 
+  font-size: 1.7rem;
   cursor: pointer;
   border-radius: 4px;
   transition: background 0.3s, transform 0.3s;
