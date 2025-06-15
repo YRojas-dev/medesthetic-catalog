@@ -1,0 +1,96 @@
+/* ================================== Fade Up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpAnimation 0.8s ease forwards;
+}
+
+@keyframes fadeUpAnimation {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================== Carrusel */
+.treatment-carousel-section {
+  width: 100vw;
+  position: relative;
+  overflow: visible;
+  padding: 4rem 0;
+}
+
+.carousel-wrapper {
+  margin-top: 3rem;
+  width: 90vw;
+  max-width: none;
+  margin-left: calc(-45.5vw + 50%);
+  position: relative; 
+  z-index: 10;
+  height: 600px;
+  padding: 0;
+  background-color: #ffffff;
+  border: 2px dashed #878787;
+  box-sizing: border-box;
+}
+
+.carousel-wrapper > div {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-wrapper > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Botones */
+.carousel-wrapper button.arrow-left,
+.carousel-wrapper button.arrow-right {
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  background: rgba(0,0,0,0.3); 
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 20;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.carousel-wrapper button.arrow-left:hover,
+.carousel-wrapper button.arrow-right:hover {
+  transform: translateY(-50%) scale(1.2);
+  background: var(--color-dark);
+}
+
+.carousel-wrapper button.arrow-left {
+  left: 10px;
+}
+
+.carousel-wrapper button.arrow-right {
+  right: 10px;
+}
+
+/* Imágenes */
+.carousel-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+
+.carousel-img.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}

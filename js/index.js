@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
-    const dataBox = document.querySelector('.data-box');
-    const animatedElements = document.querySelectorAll(".animate-fade-up");
     const renderCache = {};
 
     // ======================================= Toast ======================================= 
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ======================================= Tratamientos ======================================= 
+    // ======================================= Tratamientos Index ======================================= 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -291,29 +289,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ======================================= Animacion fadeUp =======================================
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-
-                if (el === dataBox) {
-                    el.classList.add("animate-border", "animate-content");
-                }
-
-                if (el.classList.contains("animate-fade-up")) {
-                    el.classList.add("in-view");
-                }
-
-                observer.unobserve(el);
-            }
-        });
-    }, { threshold: 0.8});
-
-    if (dataBox) {
-        observer.observe(dataBox);
-    }
-
-    animatedElements.forEach(el => observer.observe(el));
     renderTreatmentGrid("anti-aging", treatmentsAntiAging);
 });
