@@ -108,7 +108,6 @@ body {
   color: var(--color-dark);
 }
 
-/* WhatsApp */
 .contact-section {
   display: flex;
   align-items: center;
@@ -141,7 +140,7 @@ body {
 /* =========================================================================================================================== */
 nav {
   background-color: var(--color-dark);
-  width: 100%;
+  width: 101%;
   height: 5rem;
   top: 0;
   left: 0;

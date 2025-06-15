@@ -1,8 +1,9 @@
+/* ================================== Portada */
 .cover h1 {
   margin: 0;
   position: relative;
   top: -25rem;
-  animation-delay: 0.3s;
+  animation-delay: 0.5s;
 }
 
 .cover::before {
@@ -36,7 +37,7 @@
   opacity: 0;
   transform: translateY(100%);
   animation-name: slideUpFadeIn;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
@@ -52,6 +53,7 @@
   }
 }
 
+/* ================================== Data-Box */
 .data-box {
   opacity: 0;
   visibility: hidden;
@@ -80,8 +82,8 @@
 }
 
 .data-box.animate-content > div {
-  animation: contentSlideUp 0.6s ease forwards;
-  animation-delay: 0.6s;
+  animation: contentSlideUp 0.5s ease forwards;
+  animation-delay: 0.5s;
 }
 
 @keyframes borderSlideUp {
@@ -139,6 +141,7 @@
   margin-top: 2rem;
 }
 
+/* ================================== Aviso */
 .last-title {
   margin-top: 35rem;
   margin-bottom: 10rem;
