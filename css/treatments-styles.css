@@ -1,3 +1,7 @@
+body, html {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* ================================== Fade Up */
 .fade-up {
   opacity: 0;
@@ -12,6 +16,228 @@
   }
 }
 
+/* ================================== Descripcion */
+
+.description-container {
+  margin-top: -3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  color: black;
+  overflow: hidden;
+}
+
+.design-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animación Grupo */
+.animation-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(11vh);
+  transition: transform 1s ease;
+}
+
+.reveal .animation-group {
+  transform: translateY(-3rem);
+}
+
+.icon-circle {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.icon-circle img {
+  width: 45px;
+  height: 45px;
+}
+
+.vertical-line {
+  width: 2px;
+  height: 10rem;
+  background: black;
+  margin-top: -2px;
+  z-index: 1;
+}
+
+.horizontal-line {
+  width: 60vw;
+  height: 2px;
+  background: black;
+  margin: 0;
+}
+
+.horizontal-line.top {
+  margin-top: 0;
+}
+
+.horizontal-line.bottom {
+  opacity: 0;
+  transform: translateY(-10vh);
+  transition: transform 1s ease, opacity 1s ease;
+  margin-top: 2rem;
+}
+
+.reveal .horizontal-line.bottom {
+  transform: translateY(3rem);
+  opacity: 1;
+}
+
+/* Texto comprimido al inicio */
+.treatment-title,
+.treatment-description {
+  transform: scaleY(0.3) translateY(-20px);
+  opacity: 0;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Al activarse */
+.reveal .treatment-title,
+.reveal .treatment-description {
+  transform: scaleY(1) translateY(0);
+  opacity: 1;
+}
+
+.treatment-description {
+  margin-top: 2rem;
+  padding: 0rem 40rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.15rem;
+  line-height: 2.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  transition-delay: 1.2s;
+}
+
+/* ================================== Titulo */
+.treatment-title {
+  font-size: 2.9rem;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+  transition-delay: 1s;
+}
+
+/* ================================== Beneficios */
+.benefits-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+}
+
+.treatment-benefits {
+  display: flex;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.benefits-image {
+  position: relative;
+  flex: 1;
+  min-height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.benefits-image img {
+  width: 140%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.benefits-title {
+  position: relative;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  z-index: 1;
+}
+
+.benefits-title::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(255, 255, 255, 0.505);
+  z-index: -1;
+  text-shadow:
+    -1px -1px 0,
+     1px -1px 0,
+    -1px  1px 0,
+     1px  1px 0,
+    -1px  0   0,
+     1px  0   0,
+     0   -1px 0,
+     0    1px 0;
+}
+
+.benefits-dots {
+  font-weight: 500;
+  flex: 1;
+  list-style-type: disc;
+  padding: 2rem 3rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  color: #333;
+}
+
+.benefits-dots li {
+  font-size: 2.5rem;
+  line-height: 1.8;
+}
+
+/* ================================== Tagline */
+.tagline-title {
+  margin-top: 15rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 5rem;
+  font-family: "Montserrat", normal;
+}
+
+.tagline-subtitle {
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+}
+
 /* ================================== Carrusel */
 .treatment-carousel-section {
   width: 100vw;
@@ -21,17 +247,17 @@
 }
 
 .carousel-wrapper {
-  margin-top: 3rem;
-  width: 90vw;
+  width: 85vw;
   max-width: none;
-  margin-left: calc(-45.5vw + 50%);
+  margin-left: calc(-43vw + 50%);
   position: relative; 
   z-index: 10;
-  height: 600px;
+  height: 550px;
   padding: 0;
-  background-color: #ffffff;
+  background-color: #9d9d9dd5;
   border: 2px dashed #878787;
   box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .carousel-wrapper > div {
@@ -94,3 +320,15 @@
   pointer-events: auto;
   z-index: 2;
 }
+
+/* ================================== Tratamiento */
+
+/* ================================== Sesiones */
+
+/* ================================== Resultados */
+
+/* ================================== Cuidados */
+
+/* ================================== Indicaciones */
+
+/* ================================== Efectos */
