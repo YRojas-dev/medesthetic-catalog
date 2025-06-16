@@ -12,6 +12,30 @@
   }
 }
 
+/* ================================== Tagline */
+.treatment-tagline-title {
+  margin-top: 15rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-size: 5rem;
+  font-family: "Montserrat", normal;
+}
+
+.treatment-tagline-subtitle {
+  text-transform: uppercase;
+  margin-bottom: 10rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+.treatment-tagline-title,
+.treatment-tagline-subtitle {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
 /* ================================== Carrusel */
 .treatment-carousel-section {
   width: 100vw;
@@ -94,3 +118,5 @@
   pointer-events: auto;
   z-index: 2;
 }
+
+/* ================================== Carrusel */
