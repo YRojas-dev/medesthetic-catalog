@@ -8,7 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 "../img/treatments/anti-aging/botox-fullface.jpg",
                 "../img/treatments/anti-aging/collagen-biostimulation.jpg",
                 "../img/treatments/anti-aging/plasmapen.jpg"
-            ]
+            ],
+            description: "Es un tratamiento que mejora la hidratación y elasticidad de la piel desde el interior. Ideal para personas que quieren prevenir el envejecimiento o mejorar la apariencia cansada y opaca del rostro.",
+            benefits: [
+                "Hidrata profundamente la piel",
+                "Mejora firmeza y elasticidad",
+                "Aporta luminosidad al rostro",
+                "Suaviza líneas de expresión finas"
+            ],
         },
         {
             id: "collagen-biostimulation",
@@ -219,67 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    const phrases = [
-        { title: "Confianza y Estilo", subtitle: "Luce tu mejor versión" },
-        { title: "Tu Esencia, Mejorada", subtitle: "Vive tu mejor versión" },
-        { title: "Detalles que Transforman", subtitle: "Despierta tu mejor versión" },
-        { title: "Cuidado Personalizado", subtitle: "Tu mejor versión empieza aquí" },
-        { title: "Tratamientos con Propósito", subtitle: "Conquista tu mejor versión" }
-    ];
-
     const params = new URLSearchParams(window.location.search);
     const treatmentId = params.get('id');
     const currentTreatment = treatmentList.find(t => t.id === treatmentId) || treatmentList[0];
     const container = document.querySelector('.carousel-images');
-    const titleElement = document.querySelector('.treatment-title');
-    const titleTagline = document.querySelector('.treatment-tagline-title');
-    const subtitleTagline = document.querySelector('.treatment-tagline-subtitle');
+    const treatmentTitle = document.querySelector('.treatment-title');
+    const treatmentDescription = document.querySelector('.treatment-description');
+    const treatmentBenefits = document.querySelector('.benefits-dots');
 
     let currentIndex = 0;
-    let currentIndexTagline = Math.floor(Math.random() * 5);
     let intervalId;
 
-    // ================================================== TagLine 
-    titleTagline.style.opacity = 0;
-    subtitleTagline.style.opacity = 0;
-
-    function updateTagline() {
-        titleTagline.style.opacity = 0;
-        subtitleTagline.style.opacity = 0;
-
-        setTimeout(() => {
-            const phrase = phrases[currentIndexTagline];
-
-            titleTagline.textContent = phrase.title;
-            subtitleTagline.textContent = phrase.subtitle;
-
-            requestAnimationFrame(() => {
-                titleTagline.style.opacity = 1;
-                subtitleTagline.style.opacity = 1;
-            });
-
-            currentIndexTagline = (currentIndexTagline + 1) % phrases.length;
-        }, 1000);
-    }
-
-    (function initialFadeIn() {
-        const phrase = phrases[currentIndexTagline];
-
-        titleTagline.textContent = phrase.title;
-        subtitleTagline.textContent = phrase.subtitle;
-
-        requestAnimationFrame(() => {
-            titleTagline.style.opacity = 1;
-            subtitleTagline.style.opacity = 1;
-        });
-
-        currentIndexTagline = (currentIndexTagline + 1) % phrases.length;
-    })();
-
-    setInterval(updateTagline, 20000);
-
-    // ================================================== Carrusel dinámico
-    titleElement.textContent = currentTreatment.title;
+    // ====================== Carrusel dinámico
     currentTreatment.images.forEach((path, index) => {
         const div = document.createElement('div');
         div.classList.add('carousel-img');
@@ -293,8 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(div);
     });
 
-
-    let images = document.querySelectorAll('.carousel-img');
+    const images = document.querySelectorAll('.carousel-img');
 
     function showImage(nextIndex) {
         if (nextIndex === currentIndex) return;
@@ -309,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentImage.style.opacity = 1;
         currentImage.style.zIndex = 2;
 
-        nextImage.offsetHeight;
+        void nextImage.offsetHeight;
 
         currentImage.style.opacity = 0;
         nextImage.style.opacity = 1;
@@ -351,11 +308,34 @@ document.addEventListener('DOMContentLoaded', () => {
         startInterval();
     }
 
-    images.forEach((img, i) => {
-        img.style.opacity = i === 0 ? 1 : 0;
-        if (i === 0) img.classList.add('active');
+    treatmentTitle.textContent = currentTreatment.title;
+    treatmentDescription.textContent = currentTreatment.description;
+    treatmentBenefits.textContent = currentTreatment.benefits;
+
+    const wrapper = document.querySelector('.design-wrapper');
+    wrapper.classList.add('reveal');
+
+    treatmentBenefits.innerHTML = "";
+    currentTreatment.benefits.forEach(benefit => {
+        const li = document.createElement('li');
+        li.textContent = benefit;
+        treatmentBenefits.appendChild(li);
     });
 
-    startInterval();
+    const benefitImages = [
+        "../img/treatments/benefits-img1.jpg",
+        "../img/treatments/benefits-img2.jpg",
+        "../img/treatments/benefits-img3.jpg",
+        "../img/treatments/benefits-img4.jpg",
+        "../img/treatments/benefits-img5.jpg",
+        "../img/treatments/benefits-img6.jpg",
+    ];
 
+    const randomIndex = Math.floor(Math.random() * benefitImages.length);
+    const selectedImage = benefitImages[randomIndex];
+
+    const benefitsImg = document.querySelector('.benefits-image img');
+    benefitsImg.src = selectedImage;
+
+    startInterval();
 });

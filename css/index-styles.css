@@ -8,6 +8,7 @@
   background-position: center;
   background-repeat: no-repeat;
   margin-top: -1rem;
+  margin-bottom: 25rem;
   width: 101%;
   min-height: 120vh;
   padding: 40px 20px;
@@ -308,6 +309,29 @@
   visibility: visible;
 }
 
+/* ================================== Tagline */
+.tagline-title {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 5rem;
+  font-family: "Montserrat", normal;
+}
+
+.tagline-subtitle {
+  text-transform: uppercase;
+  margin-bottom: 20rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+.tagline-title,
+.tagline-subtitle {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
 /* =========================================================================================================================== */
 /* ======================================================= TRATAMIENTOS ====================================================== */
 /* =========================================================================================================================== */
@@ -325,7 +349,7 @@
   text-align: center;
   font-size: 3.5rem;
   font-weight: 400;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* fuente limpia y moderna */
+  font-family: "Montserrat", normal;
 }
 
 .tab-section {
@@ -366,6 +390,7 @@
 
 /* ======================================================= Contenido */
 .tab-content {
+  display: none;
   width: 100vw;
   max-width: 100vw;
   margin: 0;

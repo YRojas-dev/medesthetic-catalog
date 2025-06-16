@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
+    const titleTagline = document.querySelector('.tagline-title');
+    const subtitleTagline = document.querySelector('.tagline-subtitle');
     const renderCache = {};
+
+    let currentIndexTagline = Math.floor(Math.random() * 6);
 
     // ======================================= Toast ======================================= 
     function showToast() {
@@ -39,45 +43,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ======================================= Tratamientos Index ======================================= 
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            buttons.forEach(btn => btn.classList.remove('active'));
-            contents.forEach(content => {
-                content.style.display = 'none';
-                content.querySelectorAll('.treatment-card').forEach(card => {
-                    card.classList.remove('animate-in');
-                });
+    // ======================================= TagLine ======================================= 
+    const phrases = [
+        { title: "Resultados Naturales", subtitle: "Revela tu mejor versión" },
+        { title: "Confianza y Estilo", subtitle: "Luce tu mejor versión" },
+        { title: "Tu Esencia, Mejorada", subtitle: "Vive tu mejor versión" },
+        { title: "Detalles que Transforman", subtitle: "Despierta tu mejor versión" },
+        { title: "Cuidado Personalizado", subtitle: "Tu mejor versión empieza aquí" },
+        { title: "Tratamientos con Propósito", subtitle: "Conquista tu mejor versión" }
+    ];
+
+    titleTagline.style.opacity = 0;
+    subtitleTagline.style.opacity = 0;
+
+    function updateTagline() {
+        titleTagline.style.opacity = 0;
+        subtitleTagline.style.opacity = 0;
+
+        setTimeout(() => {
+            const phrase = phrases[currentIndexTagline];
+
+            titleTagline.textContent = phrase.title;
+            subtitleTagline.textContent = phrase.subtitle;
+
+            requestAnimationFrame(() => {
+                titleTagline.style.opacity = 1;
+                subtitleTagline.style.opacity = 1;
             });
 
-            const tabId = button.getAttribute('data-tab');
-            const activeContent = document.getElementById(tabId);
-            activeContent.style.display = 'block';
-            button.classList.add('active');
+            currentIndexTagline = (currentIndexTagline + 1) % phrases.length;
+        }, 1000);
+    }
 
-            setTimeout(() => {
-                activeContent.querySelectorAll('.treatment-card').forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
-                });
-            }, 50);
+    (function initialFadeIn() {
+        const phrase = phrases[currentIndexTagline];
+
+        titleTagline.textContent = phrase.title;
+        subtitleTagline.textContent = phrase.subtitle;
+
+        requestAnimationFrame(() => {
+            titleTagline.style.opacity = 1;
+            subtitleTagline.style.opacity = 1;
         });
-    });
 
-    // Ejecutar animación al cargar página
-    window.addEventListener('load', () => {
-        const activeContent = document.querySelector('.tab-content.active');
-        if (activeContent) {
-            activeContent.querySelectorAll('.treatment-card').forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('animate-in');
-                }, index * 100);
-            });
-        }
-    });
+        currentIndexTagline = (currentIndexTagline + 1) % phrases.length;
+    })();
 
-    // Orden de Tarjetas
+    setInterval(updateTagline, 60000);
+
+    // ======================================= Tratamientos Index ======================================= 
     const treatmentsAntiAging = [
         { id: "hyaluronic-acid-biostimulation", title: "Bioestimulación con Ácido Hialurónico", image: "img/treatments/anti-aging/hyaluronic-acid-biostimulation.jpg", desc: "Hidrata profundamente y estimula la producción natural de colágeno para una piel tersa, firme y revitalizada." },
         { id: "collagen-biostimulation", title: "Bioestimulación con Colágeno", image: "img/treatments/anti-aging/collagen-biostimulation.jpg", desc: "Estimula la producción de colágeno desde el interior, restaurando la elasticidad y firmeza natural de tu piel." },
@@ -129,45 +143,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement("div");
         card.className = "treatment-card";
         card.innerHTML = `
-      <div class="treatment-front">
-        <div class="treatment-image" style="background-image: url('${image}');"></div>
-        <h3 class="treatment-title">${title}</h3>
-      </div>
-      <div class="treatment-back">
-        <h3 class="treatment-title">${title}</h3>
-        <p class="treatment-desc">${desc}</p>
-        <button class="treatment-btn" onclick="goToTreatment('${id}')">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="treatment-btn-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#000000"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-            </svg>
-            Ver más
-        </button>
-      </div>
-    `;
+            <div class="treatment-front">
+                <div class="treatment-image" style="background-image: url('${image}');"></div>
+                <h3 class="treatment-title">${title}</h3>
+            </div>
+            <div class="treatment-back">
+                <h3 class="treatment-title">${title}</h3>
+                <p class="treatment-desc">${desc}</p>
+                <button class="treatment-btn" onclick="goToTreatment('${id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="treatment-btn-icon" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                    Ver más
+                </button>
+            </div>
+        `;
         return card;
     }
 
-    // Función Render
     function renderTreatmentGrid(containerId, treatmentList) {
         const tab = document.getElementById(containerId);
 
-        if (renderCache[containerId]) {
-            tab.innerHTML = '';
-            tab.appendChild(renderCache[containerId]);
-            return;
-        }
-
         const gridWrapper = document.createElement("div");
-
         const gridMain = document.createElement("div");
         const gridLast = document.createElement("div");
         gridMain.className = "treatment-grid";
@@ -188,11 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tab.innerHTML = '';
         tab.appendChild(gridWrapper);
-
-        renderCache[containerId] = gridWrapper.cloneNode(true);
     }
 
-    // Ajuste de Fila
+
     function adjustLastRow(gridLast) {
         if (!gridLast) return;
         const cards = Array.from(gridLast.querySelectorAll('.treatment-card'));
@@ -215,22 +211,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const firstCard = cards[0];
             gridLast.innerHTML = '';
 
-            const leftFiller = document.createElement('div');
-            leftFiller.classList.add('treatment-card', 'filler-card');
-            leftFiller.style.flex = `0 0 ${cardWidth3}`;
-            leftFiller.style.maxWidth = cardWidth3;
-            leftFiller.style.backgroundColor = '#000';
-            leftFiller.style.boxShadow = 'none';
-            leftFiller.style.pointerEvents = 'none';
+            const filler = document.createElement('div');
+            filler.classList.add('treatment-card', 'filler-card');
+            filler.style.flex = `0 0 ${cardWidth3}`;
+            filler.style.maxWidth = cardWidth3;
+            filler.style.backgroundColor = '#000';
+            filler.style.boxShadow = 'none';
+            filler.style.pointerEvents = 'none';
 
-            const rightFiller = leftFiller.cloneNode(true);
-
-            gridLast.appendChild(leftFiller);
+            gridLast.appendChild(filler.cloneNode(true));
             gridLast.appendChild(firstCard);
-            gridLast.appendChild(rightFiller);
-            firstCard.style.flex = `0 0 ${cardWidth3}`;
-            firstCard.style.maxWidth = cardWidth3;
-            return;
+            gridLast.appendChild(filler.cloneNode(true));
         }
 
         if (cardCount === 2) {
@@ -246,50 +237,62 @@ document.addEventListener('DOMContentLoaded', () => {
             filler.style.pointerEvents = 'none';
 
             firstCard.style.flex = `0 0 ${cardWidth4}`;
-            firstCard.style.maxWidth = cardWidth4;
             secondCard.style.flex = `0 0 ${cardWidth4}`;
-            secondCard.style.maxWidth = cardWidth4;
 
             gridLast.appendChild(filler.cloneNode(true));
             gridLast.appendChild(firstCard);
             gridLast.appendChild(secondCard);
             gridLast.appendChild(filler.cloneNode(true));
-            return;
-        }
-
-        if (cardCount === 3) {
-            const fillersNeeded = 3 - cardCount;
-            for (let i = 0; i < fillersNeeded; i++) {
-                const filler = document.createElement('div');
-                filler.classList.add('treatment-card', 'filler-card');
-                filler.style.flex = `0 0 ${cardWidth3}`;
-                filler.style.maxWidth = cardWidth3;
-                filler.style.backgroundColor = '#000';
-                filler.style.boxShadow = 'none';
-                filler.style.pointerEvents = 'none';
-                gridLast.appendChild(filler);
-            }
         }
     }
 
-    // Init para el Tab-Content Active
-    document.querySelectorAll('.tab-button').forEach(button => {
+    function setActiveTab(tabId) {
+        buttons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId));
+        contents.forEach(content => {
+            content.style.display = content.id === tabId ? 'block' : 'none';
+            content.querySelectorAll('.treatment-card').forEach(card => {
+                card.classList.remove('animate-in');
+                card.style.opacity = '0';
+            });
+        });
+
+        if (tabData[tabId]) {
+            renderTreatmentGrid(tabId, tabData[tabId]);
+        }
+
+        const activeContent = document.getElementById(tabId);
+        if (activeContent) {
+            setTimeout(() => {
+                activeContent.querySelectorAll('.treatment-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                        card.style.opacity = '1';
+                    }, index * 100);
+                });
+            }, 50);
+        }
+    }
+
+    buttons.forEach(button => {
         button.addEventListener('click', () => {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-
             const tabId = button.getAttribute('data-tab');
-            const tabEl = document.getElementById(tabId);
-            if (tabEl) {
-                tabEl.style.display = 'block';
-                renderTreatmentGrid(tabId, tabData[tabId]);
-            }
+            localStorage.setItem('lastTab', tabId);
+            setActiveTab(tabId);
         });
     });
 
-    renderTreatmentGrid("anti-aging", treatmentsAntiAging);
+    const savedTab = localStorage.getItem('lastTab');
+    const tabToLoad = tabData[savedTab] ? savedTab : buttons[0].getAttribute('data-tab');
+    setActiveTab(tabToLoad);
+
+    window.addEventListener('pageshow', () => {
+        // Aquí vuelve a correr la función que activa el tab actual y sus animaciones
+        const activeTabButton = document.querySelector('.tab-button.active');
+        if (activeTabButton) {
+            const tabId = activeTabButton.getAttribute('data-tab');
+            setActiveTab(tabId);
+        }
+    });
 });
 
 function goToTreatment(id) {
