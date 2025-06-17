@@ -16,6 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Aporta luminosidad al rostro",
                 "Suaviza líneas de expresión finas"
             ],
+            treatment: "Se aplican microinyecciones con ácido hialurónico de baja densidad en áreas específicas del rostro. Mínimamente invasivo, sin necesidad de reposo, puedes continuar tu día normalmente.",
+            sessions: [[2, 4], [2, 4, "semanas"], [30, 45, "minutos"]],
+            results: [
+                "Piel más hidratada y luminosa desde la primera sesión",
+                "Mejoras progresivas en textura y firmeza en 4 a 6 semanas",
+            ],
+            recommendations: [
+                "Evitar exposición al sol directa por 24-48 horas",
+                "Usar protector solar e hidratar la piel",
+                "No masajear la zona ni realizar ejercicio intenso el mismo día"
+            ],
+            indications: "Ideal para pieles deshidratadas, personas jóvenes que desean prevenir arrugas",
+            contraindications: "No se recomienda en embarazadas, personas con infecciones activas en la piel o enfermedades autoinmunes",
+            aftereffect: "Enrojecimiento leve o pequeños moretones en la zona tratada, que desaparecen en pocos días"
         },
         {
             id: "collagen-biostimulation",
@@ -226,43 +240,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    // Obtener el ID y tratamiento actual
     const params = new URLSearchParams(window.location.search);
     const treatmentId = params.get('id');
-    const currentTreatment = treatmentList.find(t => t.id === treatmentId) || treatmentList[0];
+    const treatment = treatmentList.find(t => t.id === treatmentId) || treatmentList[0];
+
+    // Selección de elementos
     const container = document.querySelector('.carousel-images');
     const treatmentTitle = document.querySelector('.treatment-title');
     const treatmentDescription = document.querySelector('.treatment-description');
     const treatmentBenefits = document.querySelector('.benefits-dots');
+    const treatmentMethod = document.querySelector('.applicationMethod-text');
+    const benefitsImg = document.querySelector('.benefits-image img');
+    const sessionsContent = document.querySelector('.sessions-content');
+    const wrapper = document.querySelector('.design-wrapper');
+    const resultsContainer = document.getElementById("results-section");
+    const recommendationsContainer = document.getElementById("recommendations-section");
+    const indicationsContainer = document.getElementById("indicationsContraindications-section");
+    const aftereffectContainer = document.getElementById("aftereffect-section");
 
+    // Render carrusel
     let currentIndex = 0;
     let intervalId;
 
-    // ====================== Carrusel dinámico
-    currentTreatment.images.forEach((path, index) => {
-        const div = document.createElement('div');
-        div.classList.add('carousel-img');
-        if (index === 0) div.classList.add('active');
+    function renderCarousel(images) {
+        images.forEach((path, index) => {
+            const div = document.createElement('div');
+            div.classList.add('carousel-img');
+            if (index === 0) div.classList.add('active');
 
-        const img = document.createElement('img');
-        img.src = path;
-        img.alt = `img${index + 1}`;
+            const img = document.createElement('img');
+            img.src = path;
+            img.alt = `img${index + 1}`;
 
-        div.appendChild(img);
-        container.appendChild(div);
-    });
-
-    const images = document.querySelectorAll('.carousel-img');
+            div.appendChild(img);
+            container.appendChild(div);
+        });
+    }
 
     function showImage(nextIndex) {
         if (nextIndex === currentIndex) return;
 
+        const images = document.querySelectorAll('.carousel-img');
         const currentImage = images[currentIndex];
         const nextImage = images[nextIndex];
 
         nextImage.style.opacity = 0;
         nextImage.classList.add('active');
         nextImage.style.zIndex = 3;
-
         currentImage.style.opacity = 1;
         currentImage.style.zIndex = 2;
 
@@ -280,24 +305,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function nextImage() {
+        const images = document.querySelectorAll('.carousel-img');
         const nextIndex = (currentIndex + 1) % images.length;
         showImage(nextIndex);
     }
 
     function prevImage() {
+        const images = document.querySelectorAll('.carousel-img');
         const prevIndex = (currentIndex - 1 + images.length) % images.length;
         showImage(prevIndex);
     }
-
-    document.getElementById('next-btn').addEventListener('click', () => {
-        nextImage();
-        resetInterval();
-    });
-
-    document.getElementById('prev-btn').addEventListener('click', () => {
-        prevImage();
-        resetInterval();
-    });
 
     function startInterval() {
         intervalId = setInterval(nextImage, 10000);
@@ -308,34 +325,121 @@ document.addEventListener('DOMContentLoaded', () => {
         startInterval();
     }
 
-    treatmentTitle.textContent = currentTreatment.title;
-    treatmentDescription.textContent = currentTreatment.description;
-    treatmentBenefits.textContent = currentTreatment.benefits;
+    // Eventos carrusel
+    renderCarousel(treatment.images);
+    document.getElementById('next-btn').addEventListener('click', () => { nextImage(); resetInterval(); });
+    document.getElementById('prev-btn').addEventListener('click', () => { prevImage(); resetInterval(); });
 
-    const wrapper = document.querySelector('.design-wrapper');
+    // Render contenido principal
+    treatmentTitle.textContent = treatment.title;
+    treatmentDescription.textContent = treatment.description;
+    treatmentMethod.textContent = treatment.treatment;
     wrapper.classList.add('reveal');
 
-    treatmentBenefits.innerHTML = "";
-    currentTreatment.benefits.forEach(benefit => {
-        const li = document.createElement('li');
-        li.textContent = benefit;
-        treatmentBenefits.appendChild(li);
-    });
-
+    // Render beneficios
     const benefitImages = [
-        "../img/treatments/benefits-img1.jpg",
-        "../img/treatments/benefits-img2.jpg",
-        "../img/treatments/benefits-img3.jpg",
-        "../img/treatments/benefits-img4.jpg",
-        "../img/treatments/benefits-img5.jpg",
-        "../img/treatments/benefits-img6.jpg",
+        "../img/treatments/view-img/benefits-img1.jpg",
+        "../img/treatments/view-img/benefits-img2.jpg",
+        "../img/treatments/view-img/benefits-img3.jpg",
+        "../img/treatments/view-img/benefits-img4.jpg",
+        "../img/treatments/view-img/benefits-img5.jpg",
+        "../img/treatments/view-img/benefits-img6.jpg",
     ];
 
-    const randomIndex = Math.floor(Math.random() * benefitImages.length);
-    const selectedImage = benefitImages[randomIndex];
+    benefitsImg.src = benefitImages[Math.floor(Math.random() * benefitImages.length)];
+    treatmentBenefits.innerHTML = treatment.benefits.map(b => `<li>${b}</li>`).join("");
 
-    const benefitsImg = document.querySelector('.benefits-image img');
-    benefitsImg.src = selectedImage;
+    // Render sesiones
+    const sessionData = [
+        {
+            title: "Número de sesiones",
+            icon: "session-icon1.png",
+            range: treatment.sessions[0],
+            format: r => r.length === 1 ? `${r[0]} sesiones` : `${r[0]} a ${r[1]} sesiones`
+        },
+        {
+            title: "Cada",
+            icon: "session-icon2.png",
+            range: treatment.sessions[1],
+            format: r => r.length === 2 ? `${r[0]} ${r[1]}` : `${r[0]} a ${r[1]} ${r[2]}`
+        },
+        {
+            title: "Duración aproximada",
+            icon: "session-icon3.png",
+            range: treatment.sessions[2],
+            format: r => r.length === 2 ? `${r[0]} ${r[1]}` : `${r[0]} a ${r[1]} ${r[2]}`
+        }
+    ];
+
+    sessionsContent.innerHTML = sessionData.map((item, i) => `
+    <div class="session-card ${i === 1 ? "middle" : ""}">
+        <div class="session-icon">
+        <img src="../img/treatments/view-img/${item.icon}" alt="icon">
+        </div>
+        <h3>${item.title}</h3>
+        <p>${item.format(item.range)}</p>
+    </div>
+    `).join("");
+
+    // Render resultados
+    if (treatment.results?.length) {
+        resultsContainer.innerHTML = `
+        <div class="results-left">
+        <div class="circle">
+            <img src="../img/treatments/view-img/results-icon1.png" alt="Resultados">
+        </div>
+        </div>
+        <div class="results-right">
+        <h2>Resultados</h2>
+        <div class="line"></div>
+        <div class="text">
+            <ul>${treatment.results.map(r => `<li>${r}</li>`).join("")}</ul>
+        </div>
+        </div>
+    `;
+    }
+
+    // Render recomendaciones
+    if (treatment.recommendations?.length) {
+        recommendationsContainer.innerHTML = `
+        <div class="recommendations-left">
+        <h2>Cuidados y Recomendaciones</h2>
+        <div class="line"></div>
+        <div class="text">
+            <ul>${treatment.recommendations.map(r => `<li>${r}</li>`).join("")}</ul>
+        </div>
+        </div>
+        <div class="recommendations-right">
+        <div class="circle">
+            <img src="../img/treatments/view-img/results-icon2.png" alt="Recomendaciones">
+        </div>
+        </div>
+    `;
+    }
+
+    // Render indicaciones y contraindicaciones
+    indicationsContainer.innerHTML = `
+    <div class="indication-box">
+        <img src="../img/treatments/view-img/indications-icon.png" alt="Indicaciones">
+        <h3>Indicaciones</h3>
+        <p>${treatment.indications}</p>
+    </div>
+    <div class="contraindication-box">
+        <img src="../img/treatments/view-img/contraindications-icon.png" alt="Contraindicaciones">
+        <h3>Contraindicaciones</h3>
+        <p>${treatment.contraindications}</p>
+    </div>
+    `;
+
+    // Render efectos secundarios
+    if (treatment.aftereffect) {
+        aftereffectContainer.innerHTML = `
+        <div class="aftereffect-title">
+        <h3>Posibles Efectos Secundarios</h3>
+        </div>
+        <p class="aftereffect-text">${treatment.aftereffect}</p>
+    `;
+    }
 
     startInterval();
 });

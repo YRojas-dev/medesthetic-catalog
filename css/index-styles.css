@@ -20,17 +20,6 @@
   overflow: hidden;
 }
 
-.cover-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.35);
-  z-index: 0;
-}
-
 .cover-section h3,
 .cover-section p {
   font-size: 1rem;
